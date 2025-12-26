@@ -1,7 +1,3 @@
-"""
-FastAPI Backend for MedTech Platform
-Main application entry point
-"""
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,7 +19,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=os.getenv("CORS_ORIGIN", "http://localhost:5173").split(","),
@@ -32,18 +27,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize database
 @app.on_event("startup")
 async def startup_event():
     init_db()
     print("✅ Database initialized")
 
-# Health check
 @app.get("/health")
 async def health_check():
     return {"status": "ok", "timestamp": __import__("datetime").datetime.now().isoformat()}
 
-# API routes
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(triage.router, prefix="/api/triage", tags=["Triage"])
 app.include_router(patients.router, prefix="/api/patients", tags=["Patients"])
@@ -52,7 +44,6 @@ app.include_router(drug_verify.router, prefix="/api/drug-verify", tags=["Drug Ve
 app.include_router(predictions.router, prefix="/api/predict", tags=["ML Predictions"])
 app.include_router(chatbot.router, prefix="/api/chatbot", tags=["AI Chatbot"])
 
-# Error handler
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
     return JSONResponse(

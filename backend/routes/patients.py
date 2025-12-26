@@ -1,6 +1,3 @@
-"""
-Patients Routes
-"""
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -51,7 +48,8 @@ async def get_all_patients(
     current_user = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get all patients (paginated)"""
+    db: Session = Depends(get_db)
+):
     skip = (page - 1) * limit
     
     total = db.query(Patient).count()
@@ -84,7 +82,8 @@ async def get_patient_by_id(
     current_user = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get patient by ID"""
+    db: Session = Depends(get_db)
+):
     patient = db.query(Patient).filter(Patient.id == patient_id).first()
     if not patient:
         raise HTTPException(status_code=404, detail="Patient not found")
@@ -107,7 +106,8 @@ async def create_patient(
     current_user = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Create new patient"""
+    db: Session = Depends(get_db)
+):
     patient = Patient(
         name=patient_data.name,
         age=patient_data.age,
@@ -140,14 +140,13 @@ async def update_patient(
     current_user = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Update patient"""
+    db: Session = Depends(get_db)
+):
     patient = db.query(Patient).filter(Patient.id == patient_id).first()
     if not patient:
         raise HTTPException(status_code=404, detail="Patient not found")
     
-    # Update fields
     update_data = patient_data.dict(exclude_unset=True)
-    # Map camelCase to snake_case
     if "emergencyContact" in update_data:
         update_data["emergency_contact"] = update_data.pop("emergencyContact")
     if "medicalHistory" in update_data:

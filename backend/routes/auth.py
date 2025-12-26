@@ -1,6 +1,3 @@
-"""
-Authentication Routes
-"""
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr
@@ -23,7 +20,6 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = int(os.getenv("JWT_EXPIRES_IN_DAYS", "7"))
 
 def create_access_token(data: dict):
-    """Create JWT token"""
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     to_encode.update({"exp": expire})
@@ -47,7 +43,10 @@ class PatientRegisterRequest(BaseModel):
 class LoginRequest(BaseModel):
     email: EmailStr
     password: str
-    userType: str = "doctor"  # "doctor" or "patient"
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+    userType: str = "doctor"
 
 class UserResponse(BaseModel):
     id: str
@@ -62,8 +61,8 @@ class UserResponse(BaseModel):
 
 @router.post("/register/doctor")
 async def register_doctor(request: DoctorRegisterRequest, db: Session = Depends(get_db)):
-    """Register new doctor/staff user"""
-    # Check if user exists in either table
+@router.post("/register/doctor")
+async def register_doctor(request: DoctorRegisterRequest, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(User.email == request.email).first()
     existing_patient = db.query(PatientUser).filter(PatientUser.email == request.email).first()
     if existing_user or existing_patient:
@@ -72,10 +71,8 @@ async def register_doctor(request: DoctorRegisterRequest, db: Session = Depends(
             detail="Email already registered"
         )
     
-    # Hash password
     hashed_password = pwd_context.hash(request.password)
     
-    # Create user
     user = User(
         email=request.email,
         password_hash=hashed_password,
@@ -87,7 +84,8 @@ async def register_doctor(request: DoctorRegisterRequest, db: Session = Depends(
     db.commit()
     db.refresh(user)
     
-    # Create token with userType
+    db.refresh(user)
+    
     token = create_access_token(data={"userId": user.id, "role": user.role.value, "userType": "doctor"})
     
     return {
@@ -105,8 +103,8 @@ async def register_doctor(request: DoctorRegisterRequest, db: Session = Depends(
 
 @router.post("/register/patient")
 async def register_patient(request: PatientRegisterRequest, db: Session = Depends(get_db)):
-    """Register new patient user"""
-    # Check if user exists in either table
+@router.post("/register/patient")
+async def register_patient(request: PatientRegisterRequest, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(User.email == request.email).first()
     existing_patient = db.query(PatientUser).filter(PatientUser.email == request.email).first()
     if existing_user or existing_patient:
@@ -115,10 +113,8 @@ async def register_patient(request: PatientRegisterRequest, db: Session = Depend
             detail="Email already registered"
         )
     
-    # Hash password
     hashed_password = pwd_context.hash(request.password)
     
-    # Create patient user
     patient_user = PatientUser(
         email=request.email,
         password_hash=hashed_password,
@@ -130,7 +126,8 @@ async def register_patient(request: PatientRegisterRequest, db: Session = Depend
     db.commit()
     db.refresh(patient_user)
     
-    # Create token with userType
+    db.refresh(patient_user)
+    
     token = create_access_token(data={"userId": patient_user.id, "role": "patient", "userType": "patient"})
     
     return {
@@ -149,11 +146,11 @@ async def register_patient(request: PatientRegisterRequest, db: Session = Depend
 
 @router.post("/login")
 async def login(request: LoginRequest, db: Session = Depends(get_db)):
-    """Login user (doctor or patient)"""
+@router.post("/login")
+async def login(request: LoginRequest, db: Session = Depends(get_db)):
     user_type = request.userType.lower()
     
     if user_type == "patient":
-        # Find patient user
         patient_user = db.query(PatientUser).filter(PatientUser.email == request.email).first()
         if not patient_user:
             raise HTTPException(
@@ -161,14 +158,18 @@ async def login(request: LoginRequest, db: Session = Depends(get_db)):
                 detail="Invalid credentials"
             )
         
-        # Verify password
+        if not patient_user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid credentials"
+            )
+        
         if not pwd_context.verify(request.password, patient_user.password_hash):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid credentials"
             )
         
-        # Create token
         token = create_access_token(data={"userId": patient_user.id, "role": "patient", "userType": "patient"})
         
         return {
@@ -185,7 +186,8 @@ async def login(request: LoginRequest, db: Session = Depends(get_db)):
             }
         }
     else:
-        # Find doctor/staff user
+        }
+    else:
         user = db.query(User).filter(User.email == request.email).first()
         if not user:
             raise HTTPException(
@@ -193,14 +195,12 @@ async def login(request: LoginRequest, db: Session = Depends(get_db)):
                 detail="Invalid credentials"
             )
         
-        # Verify password
         if not pwd_context.verify(request.password, user.password_hash):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid credentials"
             )
         
-        # Create token
         token = create_access_token(data={"userId": user.id, "role": user.role.value, "userType": "doctor"})
         
         return {
@@ -218,7 +218,9 @@ async def login(request: LoginRequest, db: Session = Depends(get_db)):
 
 @router.get("/me")
 async def get_current_user_info(current_user = Depends(get_current_user)):
-    """Get current user information (doctor or patient)"""
+@router.get("/me")
+async def get_current_user_info(current_user = Depends(get_current_user)):
+    from models.patient_user import PatientUser
     from models.patient_user import PatientUser
     
     if isinstance(current_user, PatientUser):
@@ -245,6 +247,7 @@ async def get_current_user_info(current_user = Depends(get_current_user)):
 
 @router.post("/logout")
 async def logout(current_user = Depends(get_current_user)):
-    """Logout (token removal handled client-side)"""
+@router.post("/logout")
+async def logout(current_user = Depends(get_current_user)):
     return {"message": "Logged out successfully"}
 

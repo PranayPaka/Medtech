@@ -4,234 +4,233 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Med tech Clinical Design System - Premium, Modern, Trustworthy */
 
 @layer base {
   :root {
-    /* Premium Clinical Palette - Soft, Clean, High trust */
-    --background: 210 100% 99%;
-    --foreground: 222 47% 11%;
+    :root {
+      --background: 210 100% 99%;
+      --foreground: 222 47% 11%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+      --card: 0 0% 100%;
+      --card-foreground: 222 47% 11%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+      --popover: 0 0% 100%;
+      --popover-foreground: 222 47% 11%;
 
-    /* Primary - Vibrant Deep Sky Blue (Medical Professional) */
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
+      --popover-foreground: 222 47% 11%;
+      --primary: 217 91% 60%;
+      --primary-foreground: 210 40% 98%;
 
-    /* Secondary - Soft Sky */
-    --secondary: 214 32% 91%;
-    --secondary-foreground: 222 47% 11%;
+      --primary-foreground: 210 40% 98%;
+      --secondary: 214 32% 91%;
+      --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+      --muted: 210 40% 96.1%;
+      --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+      --accent: 210 40% 96.1%;
+      --accent-foreground: 222.2 47.4% 11.2%;
 
-    /* Urgency levels - Refined but clear */
-    --emergency: 0 84% 60%;
-    --emergency-foreground: 210 40% 98%;
+      --accent-foreground: 222.2 47.4% 11.2%;
+      --emergency: 0 84% 60%;
+      --emergency-foreground: 210 40% 98%;
 
-    --high-urgency: 24 95% 53%;
-    --high-urgency-foreground: 210 40% 98%;
+      --high-urgency: 24 95% 53%;
+      --high-urgency-foreground: 210 40% 98%;
 
-    --medium-urgency: 45 93% 47%;
-    --medium-urgency-foreground: 210 40% 98%;
+      --medium-urgency: 45 93% 47%;
+      --medium-urgency-foreground: 210 40% 98%;
 
-    --low-urgency: 142 71% 45%;
-    --low-urgency-foreground: 210 40% 98%;
+      --low-urgency: 142 71% 45%;
+      --low-urgency-foreground: 210 40% 98%;
 
-    --normal: 215 20% 65%;
-    --normal-foreground: 210 40% 98%;
+      --normal: 215 20% 65%;
+      --normal-foreground: 210 40% 98%;
 
-    /* Status colors */
-    --success: 142 76% 36%;
-    --success-foreground: 210 40% 98%;
+      --normal-foreground: 210 40% 98%;
+      --success: 142 76% 36%;
+      --success-foreground: 210 40% 98%;
 
-    --warning: 48 96% 53%;
-    --warning-foreground: 222 47% 11%;
+      --warning: 48 96% 53%;
+      --warning-foreground: 222 47% 11%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+      --destructive: 0 84% 60%;
+      --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+      --border: 214.3 31.8% 91.4%;
+      --input: 214.3 31.8% 91.4%;
+      --ring: 221.2 83.2% 53.3%;
 
-    --radius: 0.75rem;
+      --radius: 0.75rem;
 
-    /* Sidebar - Premium Dark */
-    --sidebar-background: 222 47% 11%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 32% 17%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217.2 32.6% 17.5%;
-    --sidebar-ring: 224.3 76.3% 48%;
+      --radius: 0.75rem;
+      --sidebar-background: 222 47% 11%;
+      --sidebar-foreground: 210 40% 98%;
+      --sidebar-primary: 217 91% 60%;
+      --sidebar-primary-foreground: 0 0% 100%;
+      --sidebar-accent: 217 32% 17%;
+      --sidebar-accent-foreground: 210 40% 98%;
+      --sidebar-border: 217.2 32.6% 17.5%;
+      --sidebar-ring: 224.3 76.3% 48%;
+    }
+
+    .dark {
+      --background: 222 47% 4%;
+      --foreground: 210 40% 98%;
+
+      --card: 222 47% 6%;
+      --card-foreground: 210 40% 98%;
+
+      --popover: 222 47% 6%;
+      --popover-foreground: 210 40% 98%;
+
+      --primary: 217 91% 60%;
+      --primary-foreground: 222.2 47.4% 11.2%;
+
+      --secondary: 217.2 32.6% 12%;
+      --secondary-foreground: 210 40% 98%;
+
+      --muted: 217.2 32.6% 12%;
+      --muted-foreground: 215 20.2% 65.1%;
+
+      --accent: 217.2 32.6% 12%;
+      --accent-foreground: 210 40% 98%;
+
+      --emergency: 0 84% 60%;
+      --emergency-foreground: 210 40% 98%;
+
+      --high-urgency: 24 95% 53%;
+      --high-urgency-foreground: 210 40% 98%;
+
+      --medium-urgency: 45 93% 47%;
+      --medium-urgency-foreground: 210 40% 98%;
+
+      --low-urgency: 142 71% 45%;
+      --low-urgency-foreground: 210 40% 98%;
+
+      --success: 142 71% 45%;
+      --success-foreground: 222 47% 4%;
+
+      --warning: 48 96% 53%;
+      --warning-foreground: 222 47% 4%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 217.2 32.6% 12%;
+      --input: 217.2 32.6% 12%;
+      --ring: 224.3 76.3% 48%;
+
+      --sidebar-background: 222 47% 2%;
+      --sidebar-foreground: 210 40% 98%;
+      --sidebar-primary: 217 91% 60%;
+      --sidebar-primary-foreground: 0 0% 100%;
+      --sidebar-accent: 217.2 32.6% 8%;
+      --sidebar-accent-foreground: 210 40% 98%;
+      --sidebar-border: 217.2 32.6% 8%;
+      --sidebar-ring: 224.3 76.3% 48%;
+    }
+
+    * {
+      @apply border-border;
+    }
+
+    body {
+      @apply bg-background text-foreground antialiased;
+      font-family: 'Inter', system-ui, sans-serif;
+      background-image: radial-gradient(at 0% 0%, hsla(217, 91%, 60%, 0.03) 0, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(142, 71%, 45%, 0.02) 0, transparent 50%);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Outfit', sans-serif;
+      @apply font-bold tracking-tight;
+    }
   }
 
-  .dark {
-    --background: 222 47% 4%;
-    --foreground: 210 40% 98%;
+  @layer components {
 
-    --card: 222 47% 6%;
-    --card-foreground: 210 40% 98%;
+    @layer components {
+      .glass {
+        @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-lg;
+      }
 
-    --popover: 222 47% 6%;
-    --popover-foreground: 210 40% 98%;
+      .dark .glass {
+        @apply bg-black/40 backdrop-blur-md border border-white/5 shadow-2xl;
+      }
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+      .medical-card {
+        @apply bg-card rounded-xl border shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/20;
+      }
 
-    --secondary: 217.2 32.6% 12%;
-    --secondary-foreground: 210 40% 98%;
+      .urgency-badge {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold shadow-sm tracking-wide uppercase;
+      }
 
-    --muted: 217.2 32.6% 12%;
-    --muted-foreground: 215 20.2% 65.1%;
+      .stat-card {
+        @apply medical-card p-6 relative overflow-hidden;
+      }
 
-    --accent: 217.2 32.6% 12%;
-    --accent-foreground: 210 40% 98%;
+      .stat-card::after {
+        content: '';
+        @apply absolute top-0 right-0 w-32 h-32 rounded-full;
+        @apply bg-primary/5 -mr-16 -mt-16 transition-transform duration-500;
+      }
 
-    --emergency: 0 84% 60%;
-    --emergency-foreground: 210 40% 98%;
+      .stat-card:hover::after {
+        @apply scale-150;
+      }
 
-    --high-urgency: 24 95% 53%;
-    --high-urgency-foreground: 210 40% 98%;
+      .btn-premium {
+        @apply relative overflow-hidden transition-all duration-300 active:scale-95;
+      }
 
-    --medium-urgency: 45 93% 47%;
-    --medium-urgency-foreground: 210 40% 98%;
+      .btn-premium::before {
+        content: '';
+        @apply absolute inset-0 bg-white/10 opacity-0 transition-opacity;
+      }
 
-    --low-urgency: 142 71% 45%;
-    --low-urgency-foreground: 210 40% 98%;
+      .btn-premium:hover::before {
+        @apply opacity-100;
+      }
+    }
 
-    --success: 142 71% 45%;
-    --success-foreground: 222 47% 4%;
+    @layer utilities {
+      .text-balance {
+        text-wrap: balance;
+      }
 
-    --warning: 48 96% 53%;
-    --warning-foreground: 222 47% 4%;
+      .mesh-gradient {
+        background-color: hsla(217, 91%, 60%, 1);
+        background-image:
+          radial-gradient(at 40% 20%, hsla(217, 91%, 60%, 1) 0px, transparent 50%),
+          radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
+          radial-gradient(at 0% 50%, hsla(217, 91%, 60%, 1) 0px, transparent 50%),
+          radial-gradient(at 80% 50%, hsla(142, 71%, 45%, 1) 0px, transparent 50%),
+          radial-gradient(at 0% 100%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
+          radial-gradient(at 80% 100%, hsla(217, 91%, 60%, 1) 0px, transparent 50%),
+          radial-gradient(at 0% 0%, hsla(142, 71%, 45%, 1) 0px, transparent 50%);
+      }
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
 
-    --border: 217.2 32.6% 12%;
-    --input: 217.2 32.6% 12%;
-    --ring: 224.3 76.3% 48%;
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
 
-    --sidebar-background: 222 47% 2%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217.2 32.6% 8%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217.2 32.6% 8%;
-    --sidebar-ring: 224.3 76.3% 48%;
-  }
+      .shadow-glow {
+        box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.5);
+      }
 
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
-    background-image: radial-gradient(at 0% 0%, hsla(217, 91%, 60%, 0.03) 0, transparent 50%),
-      radial-gradient(at 100% 100%, hsla(142, 71%, 45%, 0.02) 0, transparent 50%);
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Outfit', sans-serif;
-    @apply font-bold tracking-tight;
-  }
-}
-
-@layer components {
-
-  /* Premium Medical UI Glass Components */
-  .glass {
-    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-lg;
-  }
-
-  .dark .glass {
-    @apply bg-black/40 backdrop-blur-md border border-white/5 shadow-2xl;
-  }
-
-  .medical-card {
-    @apply bg-card rounded-xl border shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/20;
-  }
-
-  .urgency-badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold shadow-sm tracking-wide uppercase;
-  }
-
-  .stat-card {
-    @apply medical-card p-6 relative overflow-hidden;
-  }
-
-  .stat-card::after {
-    content: '';
-    @apply absolute top-0 right-0 w-32 h-32 rounded-full;
-    @apply bg-primary/5 -mr-16 -mt-16 transition-transform duration-500;
-  }
-
-  .stat-card:hover::after {
-    @apply scale-150;
-  }
-
-  .btn-premium {
-    @apply relative overflow-hidden transition-all duration-300 active:scale-95;
-  }
-
-  .btn-premium::before {
-    content: '';
-    @apply absolute inset-0 bg-white/10 opacity-0 transition-opacity;
-  }
-
-  .btn-premium:hover::before {
-    @apply opacity-100;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .mesh-gradient {
-    background-color: hsla(217, 91%, 60%, 1);
-    background-image:
-      radial-gradient(at 40% 20%, hsla(217, 91%, 60%, 1) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, hsla(217, 91%, 60%, 1) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, hsla(142, 71%, 45%, 1) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
-      radial-gradient(at 80% 100%, hsla(217, 91%, 60%, 1) 0px, transparent 50%),
-      radial-gradient(at 0% 0%, hsla(142, 71%, 45%, 1) 0px, transparent 50%);
-  }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .shadow-glow {
-    box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.5);
-  }
-
-  .shadow-glow-success {
-    box-shadow: 0 0 20px -5px hsl(var(--success) / 0.5);
-  }
-}
+      .shadow-glow-success {
+        box-shadow: 0 0 20px -5px hsl(var(--success) / 0.5);
+      }
+    }

@@ -1,6 +1,3 @@
-"""
-Authentication Middleware
-"""
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -21,7 +18,6 @@ def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ) -> Union[User, PatientUser]:
-    """Get current authenticated user (doctor or patient)"""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -38,7 +34,6 @@ def get_current_user(
     except JWTError:
         raise credentials_exception
     
-    # Try to find user based on type
     if user_type == "patient":
         user = db.query(PatientUser).filter(PatientUser.id == user_id).first()
     else:
@@ -50,11 +45,9 @@ def get_current_user(
     return user
 
 def require_role(*allowed_roles: str):
-    """Dependency to require specific user roles (doctor/staff/admin only)"""
     def role_checker(current_user = Depends(get_current_user)):
         from models.patient_user import PatientUser
         
-        # Patients can't access doctor routes
         if isinstance(current_user, PatientUser):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
@@ -70,7 +63,6 @@ def require_role(*allowed_roles: str):
     return role_checker
 
 def require_patient():
-    """Dependency to require patient user"""
     def patient_checker(current_user = Depends(get_current_user)):
         from models.patient_user import PatientUser
         

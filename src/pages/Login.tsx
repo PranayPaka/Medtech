@@ -43,9 +43,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col lg:flex-row overflow-hidden">
-      {/* Left Side: Visuals & Features - Hidden on mobile */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-muted">
-        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src="/images/login-hero.png"
@@ -56,7 +54,6 @@ const Login = () => {
           <div className="absolute inset-0 bg-gradient-to-l from-background to-transparent" />
         </div>
 
-        {/* Content Overlay */}
         <div className="relative z-10 flex flex-col justify-between p-16 w-full">
           <div className="flex items-center gap-3 active:scale-95 transition-transform cursor-pointer" onClick={() => navigate("/")}>
             <div className="h-12 w-12 rounded-2xl bg-white/10 flex items-center justify-center backdrop-blur-md border border-white/20 shadow-glow">
@@ -103,15 +100,12 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Right Side: Login Form */}
       <div className="flex-1 flex items-center justify-center p-6 relative">
-        {/* Background Decorative Elements for Mobile */}
         <div className="lg:hidden absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
           <div className="absolute top-[-10%] left-[-10%] w-[100%] h-[100%] bg-primary/5 rounded-full blur-[120px]" />
         </div>
 
         <div className="w-full max-w-md animate-fade-in relative">
-          {/* Mobile Logo */}
           <div className="lg:hidden flex justify-center mb-10 relative">
             <div className="h-20 w-20 rounded-3xl bg-primary flex items-center justify-center shadow-glow relative z-10 transition-transform active:scale-95">
               <Activity className="h-10 w-10 text-white animate-pulse-subtle" />
