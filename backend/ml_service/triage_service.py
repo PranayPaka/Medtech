@@ -1,7 +1,3 @@
-"""
-Triage ML Service
-Loads and uses the trained triage model
-"""
 
 import joblib
 import os
@@ -16,12 +12,14 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 MODEL_PATH = os.path.join(PROJECT_ROOT, "ml_models", "registry", "triage_model.pkl")
 FEATURES_PATH = os.path.join(PROJECT_ROOT, "ml_models", "registry", "triage_features.pkl")
 
-# Load model and feature info on module import (lazy load)
+MODEL_PATH = os.path.join(PROJECT_ROOT, "ml_models", "registry", "triage_model.pkl")
+FEATURES_PATH = os.path.join(PROJECT_ROOT, "ml_models", "registry", "triage_features.pkl")
+
 _model = None
 _feature_info = None
 
 def _load_model():
-    """Lazy load the model and feature info"""
+def _load_model():
     global _model, _feature_info
     if _model is None:
         if not os.path.exists(MODEL_PATH):
@@ -52,7 +50,16 @@ def predict_triage_ai(
     gender: str = None,
     duration: str = None
 ) -> Optional[Dict[str, Any]]:
-    """Use Gemini AI to predict patient triage urgency level"""
+def predict_triage_ai(
+    age: int,
+    temperature: float = None,
+    heart_rate: int = None,
+    blood_pressure: str = None,
+    oxygen_saturation: int = None,
+    symptoms: str = None,
+    gender: str = None,
+    duration: str = None
+) -> Optional[Dict[str, Any]]:
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         print("DEBUG: GEMINI_API_KEY not found in environment (os.getenv)")
@@ -148,7 +155,7 @@ def predict_triage(
     """
     # 1. Attempt AI Triage first (Automatic or Forced)
     api_key = os.getenv("GEMINI_API_KEY")
-    if api_key and (force_ai or api_key): # Use api_key variable instead of undefined global
+    if api_key and (force_ai or api_key): 
         ai_result = predict_triage_ai(age, temperature, heart_rate, blood_pressure, oxygen_saturation, symptoms, gender, duration)
         if ai_result:
             print(f"DEBUG: AI triage successful, source: {ai_result.get('source')}")
@@ -156,8 +163,6 @@ def predict_triage(
         else:
             print("DEBUG: AI triage failed or returned None")
 
-    # 2. ML Prediction (use as fallback if AI fails or key missing)
-    # Note: ML model only uses vitals and age, so we still perform its check
     vitals_provided = sum([
         temperature is not None,
         heart_rate is not None,
@@ -165,7 +170,6 @@ def predict_triage(
         oxygen_saturation is not None
     ])
     
-    # Only skip ML if virtually NO data is provided
     if vitals_provided < 1 and not symptoms:
         print(f"DEBUG: No data provided, using rule-based fallback")
         return _rule_based_triage(age, temperature, heart_rate, blood_pressure, oxygen_saturation, symptoms)

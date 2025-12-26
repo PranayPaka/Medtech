@@ -63,7 +63,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (isPatient) {
-      // Patient view: fetch their own triage and prescriptions
       const fetchPatientData = async () => {
         try {
           // Fetch patient's triage results (would need patient ID linking)
@@ -76,7 +75,6 @@ const Dashboard = () => {
       };
       fetchPatientData();
     } else {
-      // Doctor view: fetch all triage queue
       const fetchQueue = async () => {
         try {
           const response = await triageApi.getAll();
@@ -90,7 +88,6 @@ const Dashboard = () => {
           }));
         } catch (error: any) {
           console.error("Failed to fetch triage queue:", error);
-          // If authorization fails, force logout
           if (error.status === 401 || error.status === 403) {
             handleLogout();
           }
@@ -100,14 +97,13 @@ const Dashboard = () => {
       };
 
       fetchQueue();
-      const interval = setInterval(fetchQueue, 30000); // Poll every 30s
+      const interval = setInterval(fetchQueue, 30000);
       return () => clearInterval(interval);
     }
   }, [isPatient]);
 
   return (
     <div className="min-h-screen bg-background selection:bg-primary/20">
-      {/* Header */}
       <header className="glass sticky top-0 z-50 transition-all duration-300">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-6">
@@ -199,7 +195,6 @@ const Dashboard = () => {
 
       <main className="container mx-auto px-4 py-8">
         {isPatient ? (
-          // Patient Dashboard
           <div className="space-y-8">
             <div className="text-center py-8">
               <h1 className="text-3xl font-bold mb-2">Welcome, {user?.name}!</h1>
@@ -239,9 +234,7 @@ const Dashboard = () => {
             </div>
           </div>
         ) : (
-          // Doctor Dashboard
           <>
-            {/* Stats */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
               <div className="stat-card group">
                 <div className="flex items-center justify-between relative z-10">
@@ -307,8 +300,6 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-
-            {/* Patient Queue */}
             <div className="medical-card overflow-hidden">
               <div className="px-6 py-6 border-b bg-muted/30 flex items-center justify-between">
                 <div>
@@ -422,8 +413,6 @@ const Dashboard = () => {
                 )}
               </CardContent>
             </div>
-
-            {/* Ethical Footer */}
             <div className="mt-12 pt-6 border-t flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground bg-muted/30 p-4 rounded-lg">
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-primary" />

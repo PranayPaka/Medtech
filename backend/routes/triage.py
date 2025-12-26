@@ -1,6 +1,3 @@
-"""
-Triage Routes
-"""
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -17,7 +14,6 @@ from ml_service.triage_service import predict_triage
 
 router = APIRouter()
 
-# Ethical disclaimer
 ETHICAL_DISCLAIMER = (
     "⚠️ MEDICAL DISCLAIMER: This is a decision support system. "
     "ML outputs are suggestions only. Final authority rests with the licensed medical professional."
@@ -55,8 +51,8 @@ async def submit_triage(
     current_user = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Submit triage assessment"""
-    # Create or find patient
+    db: Session = Depends(get_db)
+):
     patient_id = input_data.patientId
     if not patient_id:
         patient = Patient(
@@ -69,14 +65,16 @@ async def submit_triage(
         db.refresh(patient)
         patient_id = patient.id
     
-    # Extract vitals for ML prediction
+        patient_id = patient.id
+    
     vitals = input_data.vitals or {}
     bp_string = vitals.get("bloodPressure")
     heart_rate = vitals.get("heartRate")
     temperature = vitals.get("temperature")
     oxygen_sat = vitals.get("oxygenSaturation")
     
-    # Call ML service
+    oxygen_sat = vitals.get("oxygenSaturation")
+    
     ml_result = predict_triage(
         age=input_data.age,
         gender=input_data.gender,
@@ -89,7 +87,9 @@ async def submit_triage(
         force_ai=input_data.force_ai
     )
     
-    # Determine category from urgency level
+        force_ai=input_data.force_ai
+    )
+    
     category_map = {
         1: UrgencyCategory.Emergency,
         2: UrgencyCategory.High,
@@ -99,7 +99,8 @@ async def submit_triage(
     }
     category = category_map.get(ml_result['urgency_level'], UrgencyCategory.Normal)
     
-    # Create triage result
+    category = category_map.get(ml_result['urgency_level'], UrgencyCategory.Normal)
+    
     triage_result = TriageResult(
         patient_id=patient_id,
         patient_name=input_data.patientName,
@@ -117,7 +118,8 @@ async def submit_triage(
     db.commit()
     db.refresh(triage_result)
 
-    # Check for existing prescriptions to provide additional context
+    db.refresh(triage_result)
+    
     prescriptions = db.query(Prescription).filter(Prescription.patient_id == patient_id).all()
     if prescriptions:
         recent_p = prescriptions[0]

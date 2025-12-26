@@ -140,7 +140,6 @@ const Triage = () => {
 
       <main className="container mx-auto px-4 py-12 max-w-5xl">
         <div className="grid lg:grid-cols-5 gap-8">
-          {/* Form */}
           <div className="lg:col-span-3">
             <div className="medical-card">
               <div className="px-8 py-6 border-b bg-muted/30">
@@ -239,7 +238,6 @@ const Triage = () => {
             </div>
           </div>
 
-          {/* Result */}
           <div className="lg:col-span-2">
             <div className="medical-card sticky top-24 overflow-hidden h-fit">
               <div className="px-6 py-6 border-b bg-muted/20">

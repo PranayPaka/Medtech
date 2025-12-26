@@ -1,5 +1,3 @@
-// API client for communicating with the self-hosted backend
-// Configure API_BASE_URL in your environment
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
@@ -131,7 +129,6 @@ class ApiClient {
 
 export const api = new ApiClient(API_BASE_URL);
 
-// Auth API
 export const authApi = {
   login: (email: string, password: string, userType: "doctor" | "patient" = "doctor") =>
     api.post<{ token: string; user: import('@/types').User }>('/auth/login', { email, password, userType }),
@@ -147,7 +144,6 @@ export const authApi = {
   me: () => api.get<import('@/types').User>('/auth/me'),
 };
 
-// Triage API
 export const triageApi = {
   submit: (data: import('@/types').TriageInput) =>
     api.post<import('@/types').TriageResult>('/triage', data),
@@ -164,7 +160,6 @@ export const triageApi = {
     api.get<import('@/types').TriageResult[]>(`/triage/patient/${patientId}`),
 };
 
-// Patients API
 export const patientsApi = {
   getAll: (page = 1, limit = 20) =>
     api.get<import('@/types').PaginatedResponse<import('@/types').Patient>>(
@@ -181,7 +176,6 @@ export const patientsApi = {
     api.put<import('@/types').Patient>(`/patients/${id}`, data),
 };
 
-// Prescriptions API
 export const prescriptionsApi = {
   create: (data: Omit<import('@/types').Prescription, 'id' | 'createdAt'>) =>
     api.post<import('@/types').Prescription>('/prescriptions', data),
@@ -202,13 +196,11 @@ export const prescriptionsApi = {
     api.delete(`/prescriptions/${id}`),
 };
 
-// Chatbot API
 export const chatbotApi = {
   query: (message: string, history: any[] = []) =>
     api.post<{ response: string }>('/chatbot/query', { message, history }),
 };
 
-// Drug Verification API
 export const drugVerificationApi = {
   verify: (data: import('@/types').DrugVerificationInput) => {
     if (data.imageFile) {
